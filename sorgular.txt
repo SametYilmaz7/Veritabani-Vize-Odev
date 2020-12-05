@@ -1,0 +1,147 @@
+--Tabloları diagram üzerinden birbirleriyle ilişkilendirdim.
+
+--Kullanacağı veritabanını ve tabloları birleştirme işlemlerini yaptığım satır.
+
+USE [Film veritabanı (vize ödevi)]
+
+
+SELECT F.Film_ID, F.Film_Ad, FT.Tur_Ad, BO.Oyuncu_Ad, BO.Oyuncu_Soyad, Y.Yonetmen, Y.Yapimci FROM Filmler F INNER JOIN Başrol_Oyuncular BO ON F.Film_ID = BO.Oyuncu_ID INNER JOIN Yoneticiler Y ON F.Film_ID = Y.Yonetici_ID INNER JOIN Film_Turler FT ON F.Film_ID = FT.Tur_ID;
+
+
+
+--Filmler tablosunu oluşturup tabloya verileri ekledim ve primary key olarak Film_ID yi seçtim.
+
+
+CREATE TABLE Filmler
+(
+Film_ID int IDENTITY(1,1) NOT NULL,
+Ad varchar(25) NOT NULL,
+Tarih int NOT NULL,
+IMDB_Puan int NULL,
+
+PRIMARY KEY CLUSTERED
+(
+	Film_ID ASC
+) ON [PRIMARY]
+
+);
+
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Esaretin Bedeli', 1994,9) 
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Baba', 1972,9) 
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Kara Şovalye', 2008,9)
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('12 Öfkeli Adam', 1957,9) 
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Sıkı Dostlar', 1990,8)
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Yıldızlararası', 2014,8)
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Yeşil Yol', 1999,8)
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Yedi', 1995,8) 
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Joker', 2019,8)
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Gizemli Nehir', 2003,7)
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Son Umut', 2006,7) 
+INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Küçük Kadınlar', 2019,7)
+
+
+SELECT * FROM Filmler    --Tabloyu kontrol etmek için.
+
+
+
+
+--Film_Turler tablosunu oluşturup verilerini ekledim. Primary key olarak Tur_ID yi seçtim.
+
+
+CREATE TABLE Film_Turler 
+(
+Tur_ID int IDENTITY(1,1),
+Tur_Ad varchar(20) NOT NULL,
+
+PRIMARY KEY CLUSTERED
+(
+	Tur_ID ASC
+) ON [PRIMARY]
+
+);
+
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Suç')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Aksiyon')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Suç')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Bilimkurgu')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Gerilim')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Gerilim')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
+INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
+
+SELECT * FROM Film_Turler
+
+
+
+
+--Başrol_Oyuncular tablosunu oluşturup verilerini girdim. Primary key olarak Oyuncu_ID seçtim.
+
+CREATE TABLE Başrol_Oyuncular 
+(
+Oyuncu_ID int IDENTITY(1,1),
+Ad varchar(20) NOT NULL,
+Soyad varchar(30) NOT NULL,
+
+PRIMARY KEY CLUSTERED
+(
+	Oyuncu_ID ASC
+) ON [PRIMARY]
+
+);
+
+
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Morgan', 'Freeman')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Al', 'Pacino')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Heath', 'Ledger')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Henry', 'Fonda')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Ray', 'Liotta')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Matthew', 'McConaughey')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Tom', 'Hanks')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Brad', 'Pitt')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Joaquin', 'Phoenix')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Kevin', 'Bacon')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Russell', 'Crowe')
+INSERT INTO Başrol_Oyuncular (Ad, Soyad) VALUES ('Saoirse', 'Ronan')
+
+
+SELECT * FROM Başrol_Oyuncular
+
+
+
+
+--Yöneticiler tablosunu oluşturup verilerini girdim ve primary key olarak Yönetici_ID seçtim.
+
+
+CREATE TABLE Yöneticiler
+(
+Yönetici_ID int IDENTITY(1,1),
+Yönetmen varchar(20) NOT NULL,
+Yapımcı varchar(20) NULL,
+
+PRIMARY KEY CLUSTERED
+(
+	Yönetici_ID ASC
+) ON [PRIMARY]
+
+);
+
+
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Frank Darabont', 'Niki Marvin')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Francis Ford Coppola', 'Francis Ford Coppola')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Cristopher Nolan', 'Cristopher Nolan')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Sidney Lumet', 'Henry Fonda')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Martin Scorsese', 'Irwin Winkler')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Christopher Nolan', 'Emma Thomas')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Frank Darabont', 'Frank Darabont')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Andrew Kopelson', 'Andrew Kevin Walker')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Todd Philips', 'Todd Philips')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Clint Eastwood', 'Robert Lorenz')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Russell Crowe', 'Troy Lum')
+INSERT INTO Yöneticiler (Yönetmen,Yapımcı) VALUES ('Greta Gerwig', 'Amy Pascal')
+
+
+SELECT * FROM Yoneticiler
