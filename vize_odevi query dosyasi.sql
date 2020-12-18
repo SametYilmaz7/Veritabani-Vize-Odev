@@ -1,11 +1,19 @@
+--Tablolarý diagram üzerinden birbirleriyle iliþkilendirdim.
 
+--Kullanacaðý veritabanýný ve tablolarý birleþtirme iþlemlerini yaptýðým satýr.
 USE [Film veritabaný (vize ödevi)]
+
+SELECT * FROM Filmler
+SELECT * FROM Film_Turler
+SELECT * FROM Baþrol_Oyuncular
+SELECT * FROM Yoneticiler
+
 
 
 SELECT F.Film_ID, F.Film_Ad, FT.Tur_Ad, BO.Oyuncu_Ad, BO.Oyuncu_Soyad, Y.Yonetmen, Y.Yapimci FROM Filmler F INNER JOIN Baþrol_Oyuncular BO ON F.Film_ID = BO.Oyuncu_ID INNER JOIN Yoneticiler Y ON F.Film_ID = Y.Yonetici_ID INNER JOIN Film_Turler FT ON F.Film_ID = FT.Tur_ID;
 
 
-
+--Filmler tablosunu oluþturup tabloya verileri ekledim ve primary key olarak Film_ID yi seçtim.
 CREATE TABLE Filmler
 (
 Film_ID int IDENTITY(1,1) NOT NULL,
@@ -34,8 +42,10 @@ INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Son Umut', 2006,7)
 INSERT INTO Filmler (Ad, Tarih,IMDB_Puan) VALUES ('Küçük Kadýnlar', 2019,7)
 
 
-SELECT * FROM Filmler
 
+
+
+--Film_Turler tablosunu oluþturup verilerini ekledim. Primary key olarak Tur_ID yi seçtim.
 
 CREATE TABLE Film_Turler 
 (
@@ -62,7 +72,11 @@ INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
 INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
 INSERT INTO Film_Turler(Tur_Ad) VALUES ('Drama')
 
-SELECT * FROM Film_Turler
+
+
+
+--Baþrol_Oyuncular tablosunu oluþturup verilerini girdim. Primary key olarak Oyuncu_ID seçtim.
+
 
 CREATE TABLE Baþrol_Oyuncular 
 (
@@ -91,8 +105,9 @@ INSERT INTO Baþrol_Oyuncular (Ad, Soyad) VALUES ('Kevin', 'Bacon')
 INSERT INTO Baþrol_Oyuncular (Ad, Soyad) VALUES ('Russell', 'Crowe')
 INSERT INTO Baþrol_Oyuncular (Ad, Soyad) VALUES ('Saoirse', 'Ronan')
 
-SELECT * FROM Baþrol_Oyuncular
 
+
+--Yöneticiler tablosunu oluþturup verilerini girdim ve primary key olarak Yönetici_ID seçtim.
 
 CREATE TABLE Yöneticiler
 (
@@ -121,8 +136,6 @@ INSERT INTO Yöneticiler (Yönetmen,Yapýmcý) VALUES ('Clint Eastwood', 'Robert Lor
 INSERT INTO Yöneticiler (Yönetmen,Yapýmcý) VALUES ('Russell Crowe', 'Troy Lum')
 INSERT INTO Yöneticiler (Yönetmen,Yapýmcý) VALUES ('Greta Gerwig', 'Amy Pascal')
 
-
-SELECT * FROM Yoneticiler
 
 
 
